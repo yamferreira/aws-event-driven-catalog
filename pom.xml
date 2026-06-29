@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>categoria-produto</artifactId>
+	<artifactId>aws-event-driven-catalog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>categoria-produto</name>
+	<name>aws-event-driven-catalog</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

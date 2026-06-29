@@ -2,6 +2,7 @@ package com.example.categoria_produto.config.aws;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sns.model.Topic;
@@ -23,9 +24,22 @@ public class AwsSnsConfig {
     @Value("${aws.sns.topic.catalog.arn}")
     private String catalogTopicArn;
 
+    @Value("${aws.endpoint:}")
+    private String awsEndpoint;
+
     @Bean
     public AmazonSNS amazonSNSBuilder(){
         BasicAWSCredentials credentials = new BasicAWSCredentials(accessKeyId, secretKey);
+
+        if (awsEndpoint != null && !awsEndpoint.isEmpty()) {
+            return AmazonSNSClientBuilder
+                    .standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                    .withEndpointConfiguration(
+                            new AwsClientBuilder.EndpointConfiguration(awsEndpoint, region)
+                    )
+                    .build();
+        }
 
         return AmazonSNSClientBuilder
                 .standard()
